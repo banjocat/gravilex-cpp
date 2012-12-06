@@ -1,0 +1,9 @@
+grid.o: grid.cpp grid.h error.h
+main.o: main.cpp grid.h player.h humanplayer.h computerplayer.h game.h
+humanplayer.o: humanplayer.cpp player.h grid.h humanplayer.h \
+ computerplayer.h error.h
+computerplayer.o: computerplayer.cpp player.h computerplayer.h grid.h \
+ error.h
+player.o: player.cpp player.h
+game.o: game.cpp grid.h player.h humanplayer.h computerplayer.h game.h \
+ error.h

@@ -1,0 +1,193 @@
+Test Specification Gravilex Program
+
+1.  Module Overview 
+Plays a game of Gravilex with a human and computer player.
+
+1.1 Input
+    First argument required: Dictionary file for computer
+    Seonc argument optional: Testfile
+
+1.2 Outputs
+    The game.
+
+2.  Test Data
+
+
+********Representive Input***********
+Typical input in an entire game.
+One round of game is played in each test
+
+#######HOW TO RUN TESTS#################
+To excute a test you type
+'jtest #'
+Where # is the test number you want to run
+jtest 1 will run test1
+This can be done in the test or src directory
+
+Under the list of test cases.
+Ex. is then followed by at least one example in test files
+########################################
+
+********Functional Converage.*********
+
+Functional tests are broken up into testing the Computer, Player, Game Flow
+It's based on how the classes are organized in the code for easy error testing.
+
+###Testing Human Player### -
+
+1.  Human can pick a letter and drop it down a column.			test1-PASSED
+    Ex. A and 6
+2.  Pick a word that they did spell.					test1-PASSED
+    Ex. xxx is trying to be claimed.
+3.  Can't pick a word not in grid.					test1-PASSED
+    Ex.  xxxxxxx is not in grid tried to claim it
+4.  Can't pick a word that is in the grid but not 			test1-PASSED
+    from the player's move.
+    Ex.  Same as test 2 - Duplication I guess	 
+5.  Player is shown words in correct format by specs.			test1-PASSED
+    Ex.	 This is testing the grid looks correct
+6.  Given single constant and double vowels on new game start.		Manual Start-PASSED
+    Ex.  a(2) b c d e(2)... etc
+7.  Can't put a letter down a full column.				test1-PASSED
+    ex.  Tries to put down column 7 but goes back to prompt instead
+8.  Can't pick a letter that is not availiable anymore.			test1-PASSED
+    Ex.  Tries letter l which is not given during the test
+9.  Prompt: What letter would you like to drop?				test1-PASSED
+    Ex.  Testing just the correct ouput
+    Blank space in letter prompt should be ignored.			test1-PASSED
+    Ex.  Test1.in has blank spaces between letters and cols
+    Convert letter into lowercase	   				test1-PASSED
+    Ex.  The A that is the letter eventually picked is A
+12. Prompt: What column would you like to drop in? (1-7)		test1-PASSED
+    Ex.  Just output checking
+    Read integer 	      	       	       	   			test1-PASSED
+    Ex.  7 and 6 are read for col
+    Ignore whitespace							test1-PASSED
+    Ex. Space between 7 and 6
+    If non-integer recieved repeat prompt till good.			test1-PASSED
+    Ex. 'z' is trying to be used to pick a col - repeats back
+
+13. Prompt: Enter a word that you would like to claim (empty to end): 	test1-PASSED
+    Ex.  Just prompt matching
+    Read line								test1-PASSED
+    Ex. If it reads an entire word and attempts to match it    
+    Extrat first word from line						test1-PASSED
+    Ex. In .in file 'itepia second..' just itepia is extarcted
+
+14. If word not in grid print 'Sorry, I cannot find that word.'		test1&5-PASSED
+    Ex. Prompt reading
+15. If the word is not in the grid 'Sorry, you cannot claim that word.' test1&5-PASSED
+    Ex. Prompt reading
+16. If word is found - prompt 'I don't know that word. Are you sure..'	test1-PASSED
+    y or Y means points - read sign char ignore whitespace
+    Ex. 'pia' has a n, other words have a y
+
+
+###Testing Computer Player###  
+1.  Computer picks highest scoring move.				test1-PASSED
+    Ex. Computer given plenty of possible words and picks right one
+2.  If the highest score is tied - Pick constant over vowel.		test1-PASSED
+    Ex. Given icdte*  and iccing*  has both an a and a g picks g!
+3.  **************************** - Pick Letter in ABC order		test1-PASSED
+    Ex.  train*  and iccing*  has s and g picks g!
+4.  No letter to play tied choice - Touching tile     			test2&10-PASSED	
+    Ex.  No words to spell goes in far left column that touchs tile
+5.  No letter to play tied choice - ABC order.				test2&10-PASSED
+    Ex.  Given vowels and letters and picks constant in ABC order
+6.  No letter to play tied choice - Column further to left		test2&10-PASSED
+    Ex.  Goes in far left column
+7.  Will score multiple spellings in all directions.  			test3&5-PASSED
+    Ex.  Puts g in last column to spell words in multiple directions
+8.  Will get double points for palindromes! -Tests for reverse words	test4&5-PASSED
+    Ex. Made a palindrome named dinid - matches it twice.
+9.  Computer doesnt try to play a letter they don't have.      		test1-PASSED
+    Ex. Obeys letters avaiable.
+10. Computer move 'I will drop the letter X in column Y' Output Check	test1-PASSED
+    Ex. Just an output check
+11. Score word : 'I claim the word: word' - Output Check     	      	test1-PASSED
+
+
+###Game Tests ####
+1. Grid is printed							test1-PASSED
+   using seven lines							test1-PASSED
+   left alignment							test1-PASSED
+   . for empty letter							test1-PASSED
+   Last line is 1234567							test1-PASSED
+
+2. Letters remaining xxx where xxx replaced by you/me			test1-PASSED
+   Next line is letters a to z with (2) for doubs			test1-PASSED
+   Don't print a ' ' for the last letter    				test1-PASSED
+
+3. End of a turn prompt 'Points scored on this turn: '			test1-PASSED
+
+4. Points scored on this turn gives correct points for
+   1-letter word = 0							test1-PASSED
+   2-letter word = 0							test5-PASSED
+   3-letter word = 1							test5-PASSED
+   4-letter word = 2							test5-PASSED
+   5-letter word = 4							test5-PASSED
+   6-letter word = 8							test5-PASSED
+   7-letter word = 16							test17-PASSED
+
+4. Printing total score You==nn Me=nn					test1-PASSED
+   
+
+*******Boundary tests*********
+1.  Game ends at full grid at computer turn.				test7&8&9-PASSED
+    Ex.  All three tests end after computer
+2.  Tied game: 'We have tied!'						test7-PASSED
+    Ex.  0 0 is starting score no points are then scored
+3.  Human wins : 'You win!'						test8-PASSED
+    Ex. 100 You and 0 me points to start no points scored
+4.  Computer wins : 'I win!'						test9-PASSED
+    Ex. 100 You and 1000 me points no points scored
+5.  End of Input detection
+    Ex. Just put EOF at the end of each of these to check
+    Empty .in file							test11-PASSED
+    Just a letter							test12-PASSED
+    Letter and col but no empty line for words				test13-PASSED
+    Letter and col with word Not in word file then EOF			test14-PASSED
+    Same as above but now with an empty space - Should play full round	test22-PASSED
+6.  Words along far left and far right columns.	   			test15-PASSED
+    Same test now reverse with computer going left and human right	test16-PASSED
+
+7.  No words claimed	       		      	       	     		test7&8&9-PASSED
+    ex. No words are claimed and score stays at 0
+8.  Grid near filled							test5-PASSED
+    ex. Grid is near filled good check for computer scoring
+9.  Word along bottom with center word being last letter played		test17-PASSED
+    ex.  Words spelled along bottom with final letter in center
+10. Word along very top with center letter being last letter played	test18-PASSED
+
+11. Computer will go down column 1 if it is the only choice left	test19-PASSED
+
+12. Computer will go down column 7 if it is the only choice left	test18-PASSED
+
+13. Only vowels left for computer and player displays right 		test19-PASSED
+
+14. Very high scores shown for computer and player correctly		test19-PASSED
+
+15. Empty grid to start							test6-PASSED
+
+16. Words in all directions from middle 				test20-PASSED
+
+17. Computer and human both only have 1 letter left			test18-PASSED
+
+18. Computer only has vowels and plays it in correct order		test20-PASSED
+
+19. Words that are just 1 letter off match or do not match		test21-PASSED
+    Ex: 'words' doesn't match with 'word' or the viceversa works
+    Same test but testing words nota ble to claim.
+    Ex: Spelled 'words' with last letter 's' trying to claim 'word'	test21-PASSED	
+    *****The executable given fails this test**********
+
+20. Try to claim word with only 1 letter.    	       	     		test1&5-PASSED
+    Ex. Test 1 has human trying to claim both a and x
+    a is the last letter played  so it finds it but no points
+    x is not played it finds it and responds cann't claim		    
+    *****The executable given fails this test**********
+
+******Special Char tests*******
+1.  All xxx as letters - not really special but if it works good stuff!	test5-PASSED
+
+2.  Putting letters instead of columns in human get col question 	test1-PASSED

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+../src/thegame ../test/test$1.words ../test/test$1.dat < ../test/test$1.in

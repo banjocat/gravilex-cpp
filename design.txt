@@ -1,0 +1,190 @@
+
+
+/* Major problems that happened after my design
+   More on this further below at actual functions
+
+A. The algorthim for matching words -only- checked at last word played.
+   This caused a problem when I missed the line in specifcations 
+   where it gives a different prompt to the human.
+B. The algorthim only orginally checked if the word was there not how many times.
+   Silly mistake.
+
+These two problems caused some grief! 
+There were some small others along the way.
+*/
+
+
+
+
+/*
+
+
+Doing this over 
+1. I would of made only 1 player class 
+human and computer would of been private classes within.
+When I would create a player class I define it as human or computer
+Then I could of made instances where computer can play against computer.
+
+2. The player class would of used heavy polymorphism and the rest of the
+   program would not even know it was dealing with a computer or player.
+
+3.  I would of made the interfaces cleaner, my design had them clean
+But as problems came up I had to add more methods and more methods.
+
+4.  Rethink my word matching algorthim.
+Maybe use hash tables(don't really know how to do this)
+Or regular expressions would of been better.
+In very large dictionary files it is slower.
+It isn't terrible but could be better.
+
+5.  Spend more time in design before I started programming.
+    I started writing this fairly quickly after it was assigned.
+    I was afraid of how long it would of taken me.
+    There were some major design flaws I ran into during it.
+    The addition of a slew more methods from the design shows this.
+
+6.  I believe that I really could of made it this simple
+    If I had forseen all the problems!
+
+
+
+
+*/
+
+
+/*
+I will defend that I still stayed true to my basic design
+of how the program flowed!
+
+I tried orginally to make classes less dependant on each other.
+But it started to look messy so I ended up making them require each other.
+I feel there was another way to make it so that they were more independant.
+Or making a more strict interface between the classes.
+
+For my first 1000+ line project at least it works!
+Or I think it works.
+
+But looking back at this does make me sad how simple it should of been :(
+*/
+
+
+
+
+class human {
+public:
+  int getcol();  // Get col from cin
+  char getrow(); // Get row from cin
+  
+};
+
+class grid {
+
+  char grid[7][6];  // grid[x][y]  I made this private eventually
+  /* Grid is x and y axis with orgin at top left
+     x is positive to the right
+     y is positive to the left
+  */
+
+  bool dropletter(char letter, int col);  // Returns true if it can be done
+  /* Check if col filled
+     if so make highest y element that char
+  */
+  bool wordingrid(word);  // At location pull each string in every direction and compare then reverse
+                          // This was one of my major problems, because it only checked words around
+                          // the word played.  But if checking if a word around the entire grid
+                          // I had to mess with it a lot to do that also.
+                          // Also eventually it returned an int to account for a word being there multiple times.
+  /* Start from last letter plaeyd
+     Extract horizontal line from there
+     Extract Vertical line from there
+     Extract both diagonal directions.
+     Compare each and reverse each to word
+     Check to make sure match includes last letter played
+  */
+
+  int howmanypoints(word);
+  /* if letter is less than 3 or  more than 7 no points
+     3=1
+     4=2
+     5=4
+     6=8
+     7=16
+  */
+
+  string send(msg);  // Orignally idea was to enable it to be sent to other locations besides cout such as  GUI
+ 
+                      
+  string gridstring();   // I disliked that I did this, should of just made the human class do it.
+  /* out put grid with cols on bottom
+     . as empties
+  */
+};
+
+
+class computer {
+  int getcol();   // Computer makes move and pics col
+  /* try each col store possible words */
+  char getletter();  // Get row
+  /* Try each letter and store possibles */
+
+  // Because these functions were dependant I ended up making them one function.
+  // Named it MakeAMove();
+  // While getcol and getrow exist still they just read from a choice already determined.
+};
+
+
+void gameround(grid,human,computer) {
+    
+  human.writegrid(grid.gridstring);  // I just eventually made this cout, I orginally had a function to send stuff the human
+                                     // It caused some problems with formatting so I ended up just using cout for all outputs
+
+  human.showletters();               // Because of the output being different than human/computer players this was broken up a bit
+
+  grid.dropletter(human.getletter(), human.getcol());  // Same as the computer version.. wondered about order so removed the functio
+                                                       // the parameters.
+
+  human.scorepoints();                                
+
+  human.showletters();
+
+  grid.dropletter(computer.getletter(), computer.getcol());  // I ended up seperating to not have the functions in the parameters.
+                                                             // I also wondered if the order would of always been the same.
+
+  computer.scorepoints();             // Computer now compares all possible moves and sees which is higher move.
+                                      
+
+  grid.showscore();                  
+
+  
+
+  return;
+}
+    
+    
+
+
+
+void rungame() {
+     
+  Grid grid();
+  Human human();
+  Computer Computer();
+
+  while (grid.GameNotDone) {
+
+    gameround(grid,human,computer);
+  }
+
+  announcewinner();
+}
+
+    
+       
+     
+
+
+
+int main () {
+
+    rungame();
+}
