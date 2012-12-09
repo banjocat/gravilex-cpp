@@ -1,0 +1,28 @@
+This was a project I made for a C++ intro to programming class.
+All code was made and designed by me.
+
+It is a connect four type game.
+You place letters into a grid and attempt to spell words.
+Words of three to seven give you points.
+
+
+
+Tour of the files
+design.txt
+	This was my finishing design that I had for the project.
+	Points out where my project ended up moving away from it somewhat.
+
+src directory
+    As usually all the code is here.  Just type 'make'
+    How to run the game:
+    thegame dictionaryfile <opt testingfile>
+
+    A dictionary file named 'words' is supplied to use as default.
+
+test directory
+     This is where all my tests were created.
+     To use the tests you can type
+     jtest #
+     Where # is the test number.
+
+     The lists of tests used can be seen in 'testSpect.txt'
