@@ -1,9 +1,13 @@
 This was a project I made for a C++ intro to programming class.
-All code was made and designed by me.
+All code was written and designed by me alone.  The professor
+had a very specific specification on the output and input.
 
-It is a connect four type game.
-You place letters into a grid and attempt to spell words.
-Words of three to seven give you points.
+The game plays like connect four(tm) except letters are dropped instead.
+To score points, words of three to sevven letters are to be spelled.
+The game is played versus a computer opponent.  Human turn is first.
+A grid is then shown with the letters able to be played.
+At start each player is given one of each except vowels which they recieve two.
+The game will end with letters still remaining.
 
 
 
