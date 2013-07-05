@@ -23,7 +23,7 @@ Doing this over
 1. I would of made only 1 player class 
 human and computer would of been private classes within.
 When I would create a player class I define it as human or computer
-Then I could of made instances where computer can play against computer.
+Then I could have made instances where computer can play against computer.
 
 2. The player class would of used heavy polymorphism and the rest of the
    program would not even know it was dealing with a computer or player.
@@ -43,7 +43,7 @@ It isn't terrible but could be better.
     There were some major design flaws I ran into during it.
     The addition of a slew more methods from the design shows this.
 
-6.  I believe that I really could of made it this simple
+6.  I believe that I really could have made it this simple
     If I had forseen all the problems!
 
 
